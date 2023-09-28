@@ -5,7 +5,7 @@ com o banco
 de dados*/
 $servername = "localhost";
 //você deu nome ao banco de dados
-$database = "func2c";
+$database = "func2c"; //func2c ou func2d
 $username = "root";
 $password = "";
 
@@ -17,34 +17,45 @@ $conexao = mysqli_connect(
 if (!$conexao){
     die("Falha na conexão".mysqli_connect_error());
 }
-// echo "conectado com sucesso";
-    $id = $_POST["ID"];
-    $nome = $_POST["nome"];
-    $CPF = $_POST["CPF"];
-    $botao = $_POST["botao"];
+//echo "conectado com sucesso";
 
-// echo $id." ".$nome." ".$CPF." ".$botao;
+$id = $_POST["id"];
+$nome = $_POST["nome"];
+$cpf = $_POST["cpf"];
+$botao = $_POST["botao"];
 
-$aql = "INSERT INTO funcionarios (id,nome,cpf) VALUES ('', '$nome', $CPF)";
+if(empty($botao)){
 
-if($botao == "Cadastrar"){
-    if(mysql_query($conexao, $sql)){
-        echo "Cadastrado com sucesso"
+}else if($botao == "cadastrar"){
+    $sql = "INSERT INTO funcionarios 
+    (id, nome, cpf) VALUES('','$nome', '$cpf')";
+}
+
+if(!empty($sql)){
+    if(mysqli_query($conexao, $sql)){
+        echo "Operação realizada com sucesso";
     }else{
-        echo 'Falhas ao cadastrar'
+        echo "Ocorreu um erro na operação"; 
+        echo mysqli_error($conexao);
     }
 }
- ?>
-    <html>
+
+//echo $id." ".$nome." ".$cpf." ".$botao;
+
+
+
+?>
+<html>
     <body>
-        <form name ="func" method = "POST">
-            <label>ID</label><input type = "text"name ="ID"/><br />
-            <label>Nome</label><input type = "text"name = "nome"/><br />
-            <label>CPF</label><input type = "text" name = "CPF"/><br />
-            <input type = "submit" name = "botao" value = "Cadastrar" />
-            <input type = "reset" name = "botao" value = "cancelar" />
-        </form>
+    <form name = "func" method = "post" >
+        <label>ID</label>
+        <input type ="text" name = "id" /><br />
+        <label>Nome</label>
+        <input type ="text" name = "nome" /><br />
+        <label>CPF</label>
+        <input type ="text" name = "cpf" /><br />
+        <input type ="submit" name = "botao" value = "cadastrar" />
+        <input type ="reset" name = "botao" value = "cancelar" />
+    </form>
     </body>
-
-
-    </html>
+</html>
