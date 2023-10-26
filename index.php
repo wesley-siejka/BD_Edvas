@@ -40,22 +40,62 @@ if(!empty($sql)){
     }
 }
 
-//echo $id." ".$nome." ".$cpf." ".$botao;
+$selecionado = $_GET["id"];
 
+if(!empty($selecionado)){
+    $sql_selecionado = "SELECT * FROM funcionarios WHERE id = $selecionado";
 
+    $resultado = mysqli_query($conexao, $sql_selecionado);
+
+    while($linha = mysqli_fetch_assoc($resultado)){
+        $id = $linha["id"];
+        $nome = $linha["nome"];
+        $cpf = $linha["cpf"];
+    }
+}
 
 ?>
 <html>
     <body>
     <form name = "func" method = "post" >
         <label>ID</label>
-        <input type ="text" name = "id" /><br />
+        <input type ="text" name = "id" value="<?php echo $id;?>"/><br />
         <label>Nome</label>
-        <input type ="text" name = "nome" /><br />
+        <input type ="text" name = "nome" value="<?php echo $nome;?>"/><br />
         <label>CPF</label>
-        <input type ="text" name = "cpf" /><br />
+        <input type ="text" name = "cpf" value="<?php echo $cpf;?>"/><br />
         <input type ="submit" name = "botao" value = "cadastrar" />
         <input type ="reset" name = "botao" value = "cancelar" />
     </form>
+
+    <table>
+        <tr>
+            <td>-</td>
+            <td>ID</td>
+            <td>Nome</td>
+            <td>CPF</td>
+        </tr>
+
+        <?php
+        $sql_mostra_cad = "SELECT * FROM funcionarios ORDER BY id desc limit 0,10";
+
+        $resultado = mysqli_query($conexao, $sql_mostra_cad);
+
+        while($linha = mysqli_fetch_assoc($resultado)){
+            echo " 
+            <tr>
+                <td><a href='?id=".$linha["id"]."'>Selecionar</a></td>
+                <td>".$linha["id"]."</td>
+                <td>".$linha["nome"]."</td>
+                <td>".$linha["cpf"]."</td>
+            </tr>";
+        }
+
+ 
+
+        ?>
+
+    </table>
+
     </body>
 </html>
