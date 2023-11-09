@@ -23,12 +23,17 @@ $id = $_POST["id"];
 $nome = $_POST["nome"];
 $cpf = $_POST["cpf"];
 $botao = $_POST["botao"];
+$pesquisa = $_POST["pesquisa"];
 
 if(empty($botao)){
 
-}else if($botao == "cadastrar"){
+}else if($botao == "Cadastrar"){
     $sql = "INSERT INTO funcionarios 
     (id, nome, cpf) VALUES('','$nome', '$cpf')";
+}else if($botao == "Excluir"){
+    $sql = "DELETE FROM funcionarios WHERE id = '$id'";
+}else if($botao == "Pesquisar"){
+    $sql_mostra_cad = "SELECT * FROM funcionarios WHERE nome like '%$pesquisa%'";
 }
 
 if(!empty($sql)){
@@ -64,8 +69,11 @@ if(!empty($selecionado)){
         <input type ="text" name = "nome" value="<?php echo $nome;?>"/><br />
         <label>CPF</label>
         <input type ="text" name = "cpf" value="<?php echo $cpf;?>"/><br />
-        <input type ="submit" name = "botao" value = "cadastrar" />
-        <input type ="reset" name = "botao" value = "cancelar" />
+        <input type ="submit" name = "botao" value = "Cadastrar" />
+        <input type ="submit" name = "botao" value = "Excluir" />
+        <br/>
+        <input type ="text" name = "pesquisa" />
+        <input type ="submit" name ="botao" value = "Pesquisar" />
     </form>
 
     <table>
@@ -77,7 +85,9 @@ if(!empty($selecionado)){
         </tr>
 
         <?php
-        $sql_mostra_cad = "SELECT * FROM funcionarios ORDER BY id desc limit 0,10";
+        if(empty($pesquisa)){
+            $sql_mostra_cad = "SELECT * FROM funcionarios ORDER BY id desc limit 0,10";
+        }
 
         $resultado = mysqli_query($conexao, $sql_mostra_cad);
 
