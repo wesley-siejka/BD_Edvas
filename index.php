@@ -34,6 +34,8 @@ if(empty($botao)){
     $sql = "DELETE FROM funcionarios WHERE id = '$id'";
 }else if($botao == "Pesquisar"){
     $sql_mostra_cad = "SELECT * FROM funcionarios WHERE nome like '%$pesquisa%'";
+}else if($botao == "Alterar"){
+    $sql = "UPDATE funcionarios SET nome = '$nome', cpf = '$cpf' WHERE id = '$id'";
 }
 
 if(!empty($sql)){
@@ -60,20 +62,30 @@ if(!empty($selecionado)){
 }
 
 ?>
+<!DOCTYPE html>
 <html>
+    <head>
+        <meta charset="UTF-8">
+	    <meta name="viewport" content="width=device-width">
+        <title>Jorges Armazenamento</title>
+        
+		<link rel="stylesheet" href="style.css">
+    </head>
     <body>
     <form name = "func" method = "post" >
         <label>ID</label>
-        <input type ="text" name = "id" value="<?php echo $id;?>"/><br />
+        <input type ="text" name = "idi" value="<?php echo $id;?>"disabled/><br />
+        <input type ="hidden" name = "id" value="<?php echo $id;?>"/>
         <label>Nome</label>
         <input type ="text" name = "nome" value="<?php echo $nome;?>"/><br />
         <label>CPF</label>
         <input type ="text" name = "cpf" value="<?php echo $cpf;?>"/><br />
-        <input type ="submit" name = "botao" value = "Cadastrar" />
-        <input type ="submit" name = "botao" value = "Excluir" />
+        <input class="botao" type ="submit" name = "botao" value = "Cadastrar" />
+        <input class="botao" type ="submit" name = "botao" value = "Excluir" />
         <br/>
         <input type ="text" name = "pesquisa" />
-        <input type ="submit" name ="botao" value = "Pesquisar" />
+        <input class="botao" type ="submit" name ="botao" value = "Pesquisar" />
+        <input class="botao" type ="submit" name ="botao" value = "Alterar" />
     </form>
 
     <table>
@@ -93,8 +105,8 @@ if(!empty($selecionado)){
 
         while($linha = mysqli_fetch_assoc($resultado)){
             echo " 
-            <tr>
-                <td><a href='?id=".$linha["id"]."'>Selecionar</a></td>
+            <tr class = 'tab-selecionar'>
+                <td><a class = 'selecionar' href='?id=".$linha["id"]."'>Selecionar</a></td>
                 <td>".$linha["id"]."</td>
                 <td>".$linha["nome"]."</td>
                 <td>".$linha["cpf"]."</td>
