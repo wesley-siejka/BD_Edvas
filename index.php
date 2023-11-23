@@ -40,9 +40,9 @@ if(empty($botao)){
 
 if(!empty($sql)){
     if(mysqli_query($conexao, $sql)){
-        echo "Operação realizada com sucesso";
+        echo "<p>Operação realizada com sucesso</p>";
     }else{
-        echo "Ocorreu um erro na operação"; 
+        echo "<p>Ocorreu um erro na operação</p>"; 
         echo mysqli_error($conexao);
     }
 }
