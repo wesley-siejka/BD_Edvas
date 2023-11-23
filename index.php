@@ -74,26 +74,32 @@ if(!empty($selecionado)){
     <body>
     <form name = "func" method = "post" >
         <label>ID</label>
+        <br/>
         <input type ="text" name = "idi" value="<?php echo $id;?>"disabled/><br />
         <input type ="hidden" name = "id" value="<?php echo $id;?>"/>
         <label>Nome</label>
+        <br/>
         <input type ="text" name = "nome" value="<?php echo $nome;?>"/><br />
         <label>CPF</label>
+        <br/>
         <input type ="text" name = "cpf" value="<?php echo $cpf;?>"/><br />
         <input class="botao" type ="submit" name = "botao" value = "Cadastrar" />
         <input class="botao" type ="submit" name = "botao" value = "Excluir" />
         <br/>
+        <label class="pesq">Pesquisar</label>
+        <br/>
         <input type ="text" name = "pesquisa" />
+        <br/>
         <input class="botao" type ="submit" name ="botao" value = "Pesquisar" />
         <input class="botao" type ="submit" name ="botao" value = "Alterar" />
     </form>
 
     <table>
         <tr>
-            <td>-</td>
             <td>ID</td>
             <td>Nome</td>
             <td>CPF</td>
+            <td>-</td>
         </tr>
 
         <?php
@@ -106,10 +112,10 @@ if(!empty($selecionado)){
         while($linha = mysqli_fetch_assoc($resultado)){
             echo " 
             <tr class = 'tab-selecionar'>
-                <td><a class = 'selecionar' href='?id=".$linha["id"]."'>Selecionar</a></td>
                 <td>".$linha["id"]."</td>
                 <td>".$linha["nome"]."</td>
                 <td>".$linha["cpf"]."</td>
+                <td><a class = 'selecionar' href='?id=".$linha["id"]."'>Selecionar</a></td>
             </tr>";
         }
 
